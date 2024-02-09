@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Iframe Application</title>
+</head>
+<body>
+  <h1>Iframe Application</h1>
+  <p id="receivedData">Received Data: </p>
+
+  <script>
+    window.addEventListener('message', (event) => {
+    //   if (event.origin === 'https://your-parent-url.com') {
+      console.log(event)
+        const receivedData = event.data;
+        const receivedDataElement = document.getElementById('receivedData');
+        receivedDataElement.textContent = 'Received Data: ' + receivedData;
+    //   }
+    });
+  </script>
+</body>
+</html>

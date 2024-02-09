@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://d3js.org/d3.v6.min.js"></script>
+</head>
+<body>
+    <div id="map-container"></div>
+
+    <script>
+        // Set the width and height for the map container
+        const width = 1000;
+        const height = 800;
+
+        const svg = d3.select("#map-container")
+            .append("svg")
+            .attr("width", width)
+            .attr("height", height);
+
+        // Create a projection for the map (e.g., using a Mercator projection)
+        const projection = d3.geoMercator()
+            .scale(150)
+            .translate([width / 2, height / 1.5]);
+
+        // Create a path generator for the map
+        const path = d3.geoPath().projection(projection);
+
+        // Load your GeoJSON file containing country boundaries
+        d3.json("countries.geo.json").then(function (geojson) {
+            // Use D3 to render the map features
+            svg.selectAll("path")
+                .data(geojson.features)
+                .enter()
+                .append("path")
+                .attr("d", path)
+                .style("fill", "lightgray") // Change the fill color as needed
+                .style("stroke", "white"); // Change the stroke color as needed
+
+            // Define your data (match it to country codes in GeoJSON)
+            const countryData = {
+                "USA": 100,
+                "CA": 75,
+                "AU": 50
+                // Add more data as needed
+            };
+
+            // Add text labels to the map
+            svg.selectAll("text")
+                .data(geojson.features)
+                .enter()
+                .append("text")
+                .attr("x", d => path.centroid(d)[0])
+                .attr("y", d => path.centroid(d)[1]+20)
+                .text(d => {
+                    return d.id
+                })
+                .attr("text-anchor", "middle")
+                .attr("dy", "0.35em");
+        });
+    </script>
+</body>
+</html>

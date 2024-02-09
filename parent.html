@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Parent Application</title>
+</head>
+<body>
+  <h1>Parent Application</h1>
+  <button id="sendMessageButton">Send Message to Iframe</button>
+  <iframe id="myIframe" src="iframe.html" width="300" height="150"></iframe>
+
+  <script>
+    const iframe = document.getElementById('myIframe');
+    const sendMessageButton = document.getElementById('sendMessageButton');
+
+    sendMessageButton.addEventListener('click', () => {
+      const dataToSend = 'Hello from Parent!';
+      iframe.contentWindow.postMessage(dataToSend, '*');
+    });
+  </script>
+</body>
+</html>

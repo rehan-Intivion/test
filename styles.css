@@ -1,0 +1,7 @@
+.country-label {
+    font-size: 6px; /* Adjust the font size as needed */
+    fill: black; /* Label text color, adjust as needed */
+}
+#map {
+    background-color: white;
+}
